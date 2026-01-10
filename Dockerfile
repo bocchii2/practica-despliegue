@@ -1,5 +1,5 @@
 # Dockerfile
-FROM node:25
+FROM node:18
 
 # Crear directorio de la aplicación
 WORKDIR /usr/src/app
@@ -7,6 +7,7 @@ WORKDIR /usr/src/app
 # Copiar archivos al contenedor
 COPY package*.json ./
 COPY index.js .
+COPY users.json .
 
 # Instalar dependencias
 RUN npm install
