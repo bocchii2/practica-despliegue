@@ -63,7 +63,7 @@ app.post('/users', (req, res) => {
 // 3. Actualizar un usuario
 app.put('/users/:id', (req, res) => {
     const users = readDatabase();
-    const userId = req.params.id;
+    const userId = parseInt(req.params.id);
     const updatedUser = req.body;
 
     const userIndex = users.findIndex((user) => user.id === userId);
@@ -81,7 +81,7 @@ app.put('/users/:id', (req, res) => {
 // 4. Eliminar un usuario
 app.delete('/users/:id', (req, res) => {
     const users = readDatabase();
-    const userId = req.params.id;
+    const userId = parseInt(req.params.id);
 
     const filteredUsers = users.filter((user) => user.id !== userId);
 
@@ -97,7 +97,7 @@ app.delete('/users/:id', (req, res) => {
 // 5. Buscar un usuario
 app.get('/users/:id', (req, res) => {
     const users = readDatabase();
-    const userId = req.params.id;
+    const userId = parseInt(req.params.id);
     const updatedUser = req.body;
 
     const userIndex = users.findIndex((user) => user.id === userId);
@@ -108,10 +108,13 @@ app.get('/users/:id', (req, res) => {
 
     const user = users[userIndex]
 
-    res.json({ user });
+    res.status(200).json({ user });
 });
 
-// Iniciar el servidor
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Servidor corriendo en http://0.0.0.0:${PORT}`);
-});
+module.exports = app;
+
+if (require.main === module) {
+    app.listen(PORT, '0.0.0.0', () => {
+        console.log(`Servidor corriendo en http://0.0.0.0:${PORT}`);
+    });
+}
